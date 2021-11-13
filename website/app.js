@@ -1,10 +1,10 @@
 /* Global Variables */
 let baseURL = 'https://api.openweathermap.org/data/2.5/weather'
-const apiKey = 'c42bb84b10bfb0aa93e03d4c6db3ef72';
+const apiKey = '&appid=c42bb84b10bfb0aa93e03d4c6db3ef72&units=imperial';
 
 // Create a new date instance dynamically with JS
 let d = new Date();
-let newDate = d.getMonth() + '.' + d.getDate() + '.' + d.getFullYear();
+let newDate = d.getMonth() + 1 + '.' + d.getDate() + '.' + d.getFullYear();
 
 // Event listener
 document.getElementById('generate').addEventListener('click', performAction);
@@ -16,7 +16,7 @@ function performAction(e) {
     if (zipCode == '')
         return;
 
-    const fullurl = `${baseURL}?q=${zipCode}&appid=${apiKey}`;
+    const fullurl = `${baseURL}?q=${zipCode}${apiKey}`;
 
     getData(fullurl)
         .then(function (data) {
@@ -62,7 +62,7 @@ const postWeatherData = async (url = '', data = {}) => {
 //Update UI function
 updateUI = async () => {
     allData = await getData('/all');
-    document.getElementById('date').innerHTML = `My date: ${allData[allData.length - 1].date}`;
-    document.getElementById('temp').innerHTML = `My temp: ${allData[allData.length - 1].temp}`;
-    document.getElementById('content').innerHTML = `My feelings: ${allData[allData.length - 1].feelings}`;
+    document.getElementById('date').innerHTML = `My date: ${allData.date}`;
+    document.getElementById('temp').innerHTML = `My temp: ${allData.temp}`;
+    document.getElementById('content').innerHTML = `My feelings: ${allData.feelings}`;
 }
